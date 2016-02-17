@@ -51,7 +51,7 @@ public class App
     	
     	try{
 	    	Ort o = new Ort("2552", "Orpund");
-	    	session.save(o);
+	    	//session.save(o);
 	    	
 	    	Mitglied person = new Mitglied("Muster","Max", o);
 	    	
