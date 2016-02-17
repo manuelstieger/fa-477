@@ -1,0 +1,24 @@
+package ch.csbe.ifa.bidirektional.model;
+
+public class Auto {
+
+	private Person person;
+
+	public Auto() {
+		super();
+	}
+
+	public Auto(Person person) {
+		super();
+		this.person = person;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+}

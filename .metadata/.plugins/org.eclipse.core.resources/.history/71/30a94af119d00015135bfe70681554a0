@@ -1,0 +1,27 @@
+package ch.csbe.ifa.bidirektional;
+
+import ch.csbe.ifa.bidirektional.model.Auto;
+import ch.csbe.ifa.bidirektional.model.Person;
+
+public class Bidirektional {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//ausgabe("text", 4, 5, 6, 3);
+		Person p = new Person();
+		Auto a = new Auto(p);
+		p.setAuto(a);
+		
+		System.out.println(p.getAuto());
+		System.out.println(a.getPerson());
+		
+		
+	}
+	
+	public static void ausgabe(String a, int ... i){
+		for(int b : i){
+			System.out.println(b);
+		}
+	}
+
+}

@@ -1,0 +1,5 @@
+package ch.csbe.ifa.bidirektional.model;
+
+public class Person {
+
+}

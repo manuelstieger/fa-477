@@ -1,0 +1,72 @@
+package ch.csbe.ifa.partei;
+
+import java.io.IOException;
+import java.util.Properties;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import ch.csbe.ifa.partei.model.Ort;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+	static Logger log = Logger.getLogger("ifa");
+	
+    public static void main( String[] args ) throws IOException
+    {    	
+    	log.info("Application starts");
+    	
+    	Properties properties = new Properties();
+    	properties.load(App.class.getResourceAsStream("/hibernate.properties"));
+    	
+    	Configuration cfg = new Configuration()
+    		    .addAnnotatedClass(ch.csbe.ifa.partei.model.Ort.class)
+    		    .setProperty("hibernate.dialect", properties.getProperty("dialect"))
+    		    .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/ifa")
+    		    .setProperty("hibernate.connection.username", "user")
+    		    .setProperty("hibernate.connection.password", "user")
+    		    .setProperty("hibernate.hbm2ddl.auto", "create") //validate, create, create-drop, update
+    		    .setProperty("hibernate.order_updates", "true");
+    	SessionFactory sessions;
+    	Session session;
+    	sessions = cfg.buildSessionFactory();
+    	session = sessions.openSession(); // open a new Session
+    	
+    	try{
+	    	
+	    	//Ort o1 = (Ort)session.get("Ort", 1);
+    		
+    		
+	    	Ort o = new Ort();
+	    	o.setOrt("Orpund");
+	    	o.setPlz("2552");
+	    	session.save(o);
+	    	o.setPlz("3333");
+	    	//session.persist(o);
+	    	session.update(o);
+	    	
+	    	Ort ort = new Ort();
+    		ort = session.get(ort.getClass(),1);
+    		
+    		System.out.println(ort.getPlz() + " " + ort.getOrt());
+        	
+    	}catch(Exception e){
+    		System.out.println("FEHLER");
+    		System.out.println(e.getMessage());
+    	}finally{ 	
+    		session.disconnect();
+        	session.close();   
+        	sessions.close();
+    	}
+    	
+    	
+    	
+        System.out.println( "Hello World!" );
+    }
+}

@@ -1,0 +1,4 @@
+dialect=org.hibernate.dialect.MySQLDialect
+url=jdbc:mysql://localhost:3306/ifa
+user=user
+password=user

@@ -1,0 +1,18 @@
+package ch.csbe.ifa.partei.ch.csbe.ifa.partei.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Ort {
+	@Id
+	private int id;
+	
+	@Column
+	private String plz;
+	
+	@Column
+	private String ort;
+	
+}

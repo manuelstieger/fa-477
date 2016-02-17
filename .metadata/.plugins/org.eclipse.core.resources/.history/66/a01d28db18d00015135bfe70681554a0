@@ -1,0 +1,10 @@
+package ch.csbe.ifa.bidirektional;
+
+public class Bidirektional {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
