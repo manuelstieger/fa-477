@@ -1,8 +1,7 @@
 package ch.csbe.ifa.partei;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -10,9 +9,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import ch.csbe.ifa.partei.model.Amt;
+import ch.csbe.ifa.partei.model.Kommission;
+import ch.csbe.ifa.partei.model.Mitglied;
 import ch.csbe.ifa.partei.model.Ort;
-import ch.csbe.ifa.partei.model.Person;
-import javassist.tools.reflect.Reflection;
+import ch.csbe.ifa.partei.model.Politik;
 
 /**
  * Hello world!
@@ -30,8 +31,11 @@ public class App
     	properties.load(App.class.getResourceAsStream("/hibernate.properties"));
     	
     	Configuration cfg = new Configuration()
-    		    .addAnnotatedClass(ch.csbe.ifa.partei.model.Ort.class)
-    		    .addAnnotatedClass(ch.csbe.ifa.partei.model.Person.class)
+    		    .addAnnotatedClass(Ort.class)
+    		    .addAnnotatedClass(Mitglied.class)
+    		    .addAnnotatedClass(Amt.class)
+    		    .addAnnotatedClass(Politik.class)
+    		    .addAnnotatedClass(Kommission.class)
     		    .setProperty("hibernate.dialect", properties.getProperty("dialect"))
     		    .setProperty("hibernate.connection.url", properties.getProperty("url"))
     		    .setProperty("hibernate.connection.username", properties.getProperty("user"))
@@ -49,24 +53,31 @@ public class App
 	    	Ort o = new Ort("2552", "Orpund");
 	    	session.save(o);
 	    	
-	    	Person person = new Person("Muster","Max", o);
-	    	//person.setOrt(null);
+	    	Mitglied person = new Mitglied("Muster","Max", o);
+	    	
+	    	Politik politik = new Politik(Amt.Ebene.GEMEINDE, "Gemeinderat", new Date(), null, 10000);
+	    	Kommission kommission = new Kommission(Amt.Ebene.KANTON, "Steuerkommission", new Date(), null, true);
+	    	
+	    	person.getAemter().add(politik);
+	    	person.getAemter().add(kommission);
+	    	politik.getMitglieder().add(person);
+	    	kommission.getMitglieder().add(person);
+	    	
 	    	session.save(person);
-	    	
-	    	
-	    	Ort ort = new Ort();
-    		ort = session.get(ort.getClass(),1);
-	    	session.delete(ort);
+	    	session.flush();
 	    	
 	    	
 	    	/*Ort ort = new Ort();
     		ort = session.get(ort.getClass(),1);
     		
     		System.out.println(ort.getPlz() + " " + ort.getOrt());*/
-	    	Person p = new Person();
+	    	Mitglied p = new Mitglied();
 	    	p = session.get(p.getClass(), 1);
 	    	
-	    	System.out.println(p.getOrt().getOrt());	    	
+	    	System.out.println(p.getName());
+	    	for(Amt a : p.getAemter()){
+	    		System.out.println(a.getBezeichnung());
+	    	}
         	
     	}catch(Exception e){
     		System.out.println(e.getMessage());
