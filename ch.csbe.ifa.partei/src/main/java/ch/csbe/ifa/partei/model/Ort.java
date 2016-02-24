@@ -56,5 +56,9 @@ public class Ort {
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
+	
+	public String toString(){
+		return this.ort;
+	}
 
 }

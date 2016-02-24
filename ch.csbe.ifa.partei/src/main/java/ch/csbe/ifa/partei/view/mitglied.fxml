@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.csbe.ifa.partei.controller.MitgliedController">
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="99.0" fitWidth="596.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../Schreibtisch/JavaFXSceneBuilder2.0/app/fxml-128.png" />
+               </image>
+            </ImageView>
+            <Label text="First FX GUI">
+               <font>
+                  <Font size="80.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="MitgliedListe">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView prefHeight="223.0" prefWidth="594.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="MitgliedErfassen">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="138.0" layoutY="41.0" text="Name" />
+                        <TextField fx:id="name" layoutX="203.0" layoutY="36.0" prefHeight="25.0" prefWidth="215.0" />
+                        <TextField fx:id="vorname" layoutX="203.0" layoutY="74.0" prefHeight="25.0" prefWidth="215.0" />
+                        <Label layoutX="117.0" layoutY="79.0" text="Vorname" />
+                        <ComboBox fx:id="ort" editable="true" layoutX="203.0" layoutY="116.0" prefHeight="25.0" prefWidth="216.0" />
+                        <Label layoutX="158.0" layoutY="121.0" prefHeight="15.0" prefWidth="22.0" text="Ort" />
+                        <Button layoutX="334.0" layoutY="158.0" mnemonicParsing="false" onAction="#save" onKeyPressed="#save" text="Speichern" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <bottom>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="521.0" minWidth="10.0" prefWidth="521.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="79.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="15.0" prefWidth="96.0" text="Enrico Buchs" />
+            <Label text="IFA 2016" GridPane.columnIndex="1" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="15.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </bottom>
+</BorderPane>
