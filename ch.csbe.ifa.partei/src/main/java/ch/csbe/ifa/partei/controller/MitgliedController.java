@@ -26,6 +26,7 @@ public class MitgliedController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Eingegebene Mitglieddaten");
 		alert.setHeaderText("Mitglied information");
+		System.out.println(ort.getValue().getPlz());
 		alert.setContentText(name.getText() + "\n" + ort.getValue());
 		alert.show();
 	}

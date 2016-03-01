@@ -18,7 +18,6 @@ public class Database {
 	
 	private static Database instance;
 	private Configuration config;
-	private Properties properties;
 	private SessionFactory sessions;
 	private Session session;
 	
@@ -34,27 +33,22 @@ public class Database {
 	}
 	
 	private Database() throws IOException{
-		this.properties = new Properties();
-    	this.properties.load(App.class.getResourceAsStream("/hibernate.properties"));
-		
 		this.config = new Configuration()
 	    .addAnnotatedClass(Ort.class)
 	    .addAnnotatedClass(Mitglied.class)
 	    .addAnnotatedClass(Amt.class)
 	    .addAnnotatedClass(Politik.class)
-	    .addAnnotatedClass(Kommission.class)
-	    .setProperty("hibernate.dialect", properties.getProperty("dialect"))
-	    .setProperty("hibernate.connection.url", properties.getProperty("url"))
-	    .setProperty("hibernate.connection.username", properties.getProperty("user"))
-	    .setProperty("hibernate.connection.password", properties.getProperty("password"))
-	    .setProperty("hibernate.hbm2ddl.auto", properties.getProperty("strategy")) //validate, create, create-drop, update
-	    .setProperty("hibernate.order_updates", "true");
-		
+	    .addAnnotatedClass(Kommission.class);
+	
 		this.sessions = this.config.buildSessionFactory();
 	}
 	
 	public void openSession(){
-		this.session = this.sessions.openSession();
+		if(this.sessions == null || this.sessions.isClosed()){
+			this.sessions = this.config.buildSessionFactory();
+		}
+		if(this.session == null || !this.session.isOpen())
+			this.session = this.sessions.openSession();
 	}
 	
 	public Session getSession(){
