@@ -26,7 +26,7 @@ public class Mitglied {
 	@Column(nullable = false)
 	private String vorname;
 
-	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	private Ort ort;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
