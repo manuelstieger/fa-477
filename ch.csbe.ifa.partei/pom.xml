@@ -59,7 +59,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>ch.csbe.ifa.partei.MainApp</mainClass>
+							<mainClass>ch.csbe.ifa.partei.OtherMainClassFX</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
@@ -73,6 +73,7 @@
 				<directory>src/main/java/</directory>
 				<includes>
 					<include>**/*.fxml</include>
+					<include>**/*.png</include>
 					<include>**/*.properties</include>
 				</includes>
 			</resource>

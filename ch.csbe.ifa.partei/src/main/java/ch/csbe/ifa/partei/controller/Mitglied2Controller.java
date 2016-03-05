@@ -21,28 +21,34 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class Mitglied2Controller extends Controller{
+public class Mitglied2Controller extends Controller {
 
-	@FXML public TabPane tabpane;
-	@FXML private Tab erfassen;
-	@FXML private TableView<Mitglied> mitgliedtable;
-	@FXML private TableColumn<Mitglied, String> first;
-	@FXML private TableColumn<Mitglied, String> last;
-	@FXML private TableColumn<Mitglied, String> id;
-	@FXML private TableColumn<Mitglied, String> wohnort;
-	
+	@FXML
+	public TabPane tabpane;
+	@FXML
+	private Tab erfassen;
+	@FXML
+	private TableView<Mitglied> mitgliedtable;
+	@FXML
+	private TableColumn<Mitglied, String> first;
+	@FXML
+	private TableColumn<Mitglied, String> last;
+	@FXML
+	private TableColumn<Mitglied, String> id;
+	@FXML
+	private TableColumn<Mitglied, String> wohnort;
+
 	private Controller iface;
-	
-	
-	@FXML public void initialize(){
+
+	@FXML
+	public void initialize() {
 		iface = this;
 		erfassen.setContent(new MitgliedForm(iface));
 		Database.getInstance().openSession();
 		mitglieder();
 		Database.getInstance().closeSession();
 	}
-	
-	
+
 	public void mitglieder() {
 		MitgliedDao mitglieddao = new MitgliedDao();
 		List<Mitglied> mitglieder = mitglieddao.list();
@@ -69,42 +75,18 @@ public class Mitglied2Controller extends Controller{
 				final MenuItem editMenuItem = new MenuItem("Edit");
 				editMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 
-					@SuppressWarnings("unchecked")
 					@Override
 					public void handle(ActionEvent event) {
 						Session.getInstance("first").getMap().put("mitglied", row.getItem());
 						Tab t = new Tab("Bearbeiten " + row.getItem().getName());
 						t.setContent(new MitgliedForm(iface));
 						tabpane.getTabs().add(t);
-						tabpane.getSelectionModel().select(tabpane.getTabs().size()-1);
-						
-						/*mitgliederfassen = MitgliedController.tabpane.getTabs().get(1);
-						content = mitgliederfassen.getContent();
-						MitgliedController.selectedmitglied = row.getItem();
-						Tab edit = new Tab("Edit " + row.getItem().getName());
-						try {
-							FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/mitglied-form.fxml"));
-
-							edit.setContent(loader.load());
-							((TextField)edit.getContent().lookup("#name")).setText(row.getItem().getName());
-							((TextField)edit.getContent().lookup("#vorname")).setText(row.getItem().getVorname());
-							((ComboBox<Ort>)edit.getContent().lookup("#ort")).getSelectionModel().select(row.getItem().getOrt());
-							MitgliedController.tabpane.getTabs().add(edit);
-							MitgliedController.tabpane.getSelectionModel().select(edit);
-							loader.setController(this);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						//edit.setContent(content);
-					*/	
+						tabpane.getSelectionModel().select(tabpane.getTabs().size() - 1);
 					}
 				});
 
-				contextMenu.getItems().add(editMenuItem);				
+				contextMenu.getItems().add(editMenuItem);
 				contextMenu.getItems().add(removeMenuItem);
-				// Set context menu on row, but use a binding to make it only
-				// show for non-empty rows:
 				row.contextMenuProperty()
 						.bind(Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(contextMenu));
 				return row;
@@ -112,5 +94,5 @@ public class Mitglied2Controller extends Controller{
 		});
 
 	}
-	
+
 }

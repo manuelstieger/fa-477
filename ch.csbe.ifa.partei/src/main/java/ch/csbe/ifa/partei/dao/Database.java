@@ -1,13 +1,11 @@
 package ch.csbe.ifa.partei.dao;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import ch.csbe.ifa.partei.App;
 import ch.csbe.ifa.partei.model.Amt;
 import ch.csbe.ifa.partei.model.Kommission;
 import ch.csbe.ifa.partei.model.Mitglied;
