@@ -53,7 +53,6 @@ public class MitgliedForm1Controller extends Controller {
 	
 	public void cancel(){
 		Mitglied2Controller controller = (Mitglied2Controller)view.iface;
-		controller.tabpane.getTabs().remove(controller.tabpane.getSelectionModel().getSelectedIndex());
 		controller.tabpane.getSelectionModel().select(0);
 	}
 	
