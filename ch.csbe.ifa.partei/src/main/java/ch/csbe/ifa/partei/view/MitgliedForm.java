@@ -30,6 +30,7 @@ public class MitgliedForm extends AnchorPane {
 	public TextField vorname = new TextField();
 	public ComboBox<Ort> wohnort = new ComboBox<Ort>();
 	Button save = new Button("Speichern");
+	Button cancel = new Button("Abbrechen");
 	public Controller iface;
 
 	public MitgliedForm(Controller iface) {
@@ -69,8 +70,16 @@ public class MitgliedForm extends AnchorPane {
 		save.setLayoutY(158);
 
 		save.addEventHandler(ActionEvent.ANY, new SaveHandler());
+		
 
-		this.getChildren().addAll(lvorname, lname, lwohnort, name, vorname, wohnort, save);
+		
+		cancel.setLayoutX(334);
+		cancel.setLayoutY(188);
+		
+
+		cancel.addEventHandler(ActionEvent.ANY, new CancelHandler());
+
+		this.getChildren().addAll(lvorname, lname, lwohnort, name, vorname, wohnort, save, cancel);
 
 		Database.getInstance().openSession();
 		orte(null);
@@ -137,6 +146,16 @@ public class MitgliedForm extends AnchorPane {
 		public void handle(Event event) {
 			MitgliedForm1Controller mc = new MitgliedForm1Controller(instance);
 			mc.save();
+
+		}
+
+	}
+	
+	public class CancelHandler implements EventHandler<Event> {
+
+		public void handle(Event event) {
+			MitgliedForm1Controller mc = new MitgliedForm1Controller(instance);
+			mc.cancel();
 
 		}
 

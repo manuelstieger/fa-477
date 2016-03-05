@@ -21,24 +21,40 @@ public class MitgliedForm1Controller extends Controller {
 		MitgliedDao md = new MitgliedDao();
 		Mitglied2Controller controller = (Mitglied2Controller)view.iface;
 		Database.getInstance().openSession();
-		if(Session.getInstance("first").getMap().get("mitglied") != null && Session.getInstance("first").getMap().get("mitglied") instanceof Mitglied){
-			m = (Mitglied)Session.getInstance("first").getMap().get("mitglied");
-			m.setName(view.name.getText());
-			m.setVorname(view.vorname.getText());
-			m.setOrt(view.wohnort.getValue());
-			md.update(m);
-			controller.tabpane.getTabs().remove(controller.tabpane.getSelectionModel().getSelectedIndex());
-		}else{
-			m = new Mitglied(view.name.getText(), view.vorname.getText(), view.wohnort.getValue());
-			md.save(m);
+		
+		if(view.name.getText().length()>0 && view.vorname.getText().length()>0
+				&& view.wohnort.getValue() != null){
+			if(Session.getInstance("first").getMap().get("mitglied") != null && Session.getInstance("first").getMap().get("mitglied") instanceof Mitglied){
+				m = (Mitglied)Session.getInstance("first").getMap().get("mitglied");
+				m.setName(view.name.getText());
+				m.setVorname(view.vorname.getText());
+				m.setOrt(view.wohnort.getValue());
+				md.update(m);
+				if(controller.tabpane.getSelectionModel().getSelectedIndex()>1)
+					controller.tabpane.getTabs().remove(controller.tabpane.getSelectionModel().getSelectedIndex());
+			}else{
+				m = new Mitglied(view.name.getText(), view.vorname.getText(), view.wohnort.getValue());
+				md.save(m);
+			}
+		
+			view.name.setText("");
+			view.vorname.setText("");
+			view.wohnort.setValue(null);
+			
+			controller.mitglieder();
+			controller.tabpane.getSelectionModel().select(0);
+			
+			Database.getInstance().closeSession();
+	
+			Session.getInstance("first").getMap().put("mitglied", m);
+		
 		}
-		
-		controller.mitglieder();
+	}
+	
+	public void cancel(){
+		Mitglied2Controller controller = (Mitglied2Controller)view.iface;
+		controller.tabpane.getTabs().remove(controller.tabpane.getSelectionModel().getSelectedIndex());
 		controller.tabpane.getSelectionModel().select(0);
-		
-		Database.getInstance().closeSession();
-
-		Session.getInstance("first").getMap().put("mitglied", m);
 	}
 	
 }
